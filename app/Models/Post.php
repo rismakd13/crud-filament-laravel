@@ -12,7 +12,7 @@ class Post extends Model implements HasMedia
 {
     use HasFactory, InteractsWithMedia;
 
-    protected $fillable = ['category_id', 'title', 'slug', 'content', 'status'];
+    protected $fillable = ['category_id', 'title', 'slug', 'cover', 'content', 'status'];
 
     public function category(){
         return $this->belongsTo(Category::class);

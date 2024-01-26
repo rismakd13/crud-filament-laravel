@@ -5,9 +5,13 @@ namespace App\Providers;
 use Filament\Facades\Filament;
 use Filament\Navigation\UserMenuItem;
 use Illuminate\Support\ServiceProvider;
+use App\Filament\Resources\UserResource;
+use Filament\Panel;
 
 class FilamentServiceProvider extends ServiceProvider
 {
+    protected static ?string $navigationIcon = 'heroicon-o-cog-6-tooth';
+    
     /**
      * Register services.
      */
@@ -21,14 +25,14 @@ class FilamentServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        // Filament::serving(function () {
-        //     Filament::registerUserMenuItems{[
-        //         UserMenuItem::make()
-        //             ->label('Settings')
-        //             ->url(route('/'))
-        //             ->icon('heroicon-o-cog-6-tooth'),
-        //     ]};
-        // });
+        Filament::serving(function () {
+            Filament::registerUserMenuItems([
+                UserMenuItem::make()
+                    ->label('Settings')
+                    ->url(UserResource::getUrl())
+                    // ->icon('heroicon-o-cog-6-tooth'),
+            ]);
+        });
 
     }
 }

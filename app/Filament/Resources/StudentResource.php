@@ -23,6 +23,7 @@ use pxlrbt\FilamentExcel\Actions\Tables\ExportBulkAction;
 use App\Filament\Resources\StudentResource\RelationManagers;
 use App\Filament\Resources\StudentResource\RelationManagers\PostRelationManager;
 use App\Filament\Resources\StudentResource\RelationManagers\PrestasiRelationManager;
+use App\Filament\Resources\StudentResource\Widgets\StudentStatsOverview;
 
 class StudentResource extends Resource
 {
@@ -30,7 +31,7 @@ class StudentResource extends Resource
 
     protected static ?string $recordTitleAttribute = 'nama';
 
-    protected static ?string $navigationIcon = 'heroicon-o-collection';
+    protected static ?string $navigationIcon = 'heroicon-o-users';
 
     public static function form(Form $form): Form
     {
@@ -94,7 +95,11 @@ class StudentResource extends Resource
                 Tables\Actions\EditAction::make(),
                 Tables\Actions\DeleteAction::make(),
             ])
+            // ->headerActions([
+            //     Tables\Actions\CreateAction::make(),
+            // ])
             ->bulkActions([
+                // ButtonBulkAction::make(),
                 ExportBulkAction::make(),
                 Tables\Actions\DeleteBulkAction::make(),
             ]);
@@ -118,14 +123,21 @@ class StudentResource extends Resource
         ];
     }
     
-    public static function infolist(Infolist $infolist): Infolist
+    // public static function infolist(Infolist $infolist): Infolist
+    // {
+    //     return $infolist
+    //         ->schema([
+    //             Infolists\Components\TextEntry::make('nim'),
+    //             Infolists\Components\TextEntry::make('nama'),
+    //             Infolists\Components\TextEntry::make('email'),
+    //             Infolists\Components\TextEntry::make('jenis_kelamin'),
+    //         ]);
+    // }
+
+    public static function getWidgets(): array
     {
-        return $infolist
-            ->schema([
-                Infolists\Components\TextEntry::make('nim'),
-                Infolists\Components\TextEntry::make('nama'),
-                Infolists\Components\TextEntry::make('email'),
-                Infolists\Components\TextEntry::make('jenis_kelamin'),
-            ]);
+        return [
+            //StudentStatsOverview::class
+        ];
     }
 }

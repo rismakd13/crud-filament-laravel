@@ -26,8 +26,8 @@ use App\Filament\Resources\PostResource\Pages;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use App\Filament\Resources\PostResource\RelationManagers;
 use pxlrbt\FilamentExcel\Actions\Tables\ExportBulkAction;
-use Filament\Tables\Columns\SpatieMediaLibraryImageColumn;
-use Filament\Forms\Components\SpatieMediaLibraryfileUpload;
+// use Filament\Tables\Columns\SpatieMediaLibraryImageColumn;
+// use Filament\Forms\Components\SpatieMediaLibraryfileUpload;
 use App\Filament\Resources\PostResource\Widgets\StatsOverview;
 use App\Filament\Resources\PostResource\RelationManagers\TagsRelationManager;
 
@@ -62,11 +62,6 @@ class PostResource extends Resource
                         ->imageCropAspectRatio('16:9')
                         ->imageResizeTargetWidth('1920')
                         ->imageResizeTargetHeight('1080'),
-                        // ->store(function (UploadedFile $file, array $values) {
-                        //     // Logic to handle the uploaded image file
-                        //     $path = $file->storePublicly('public/cover'); // Store in storage/app/public/foto
-                        //     return ['cover' => $path];
-                        // }),
                     RichEditor::make('content'),
                     Toggle::make('status'),
                 ])
@@ -89,8 +84,9 @@ class PostResource extends Resource
                 ),
                 TextColumn::make('title')->limit('50')->sortable()->searchable(),
                 TextColumn::make('category.name')->sortable()->searchable(),
-                // SpatieMediaLibraryImageColumn::make('cover')->sortable()->searchable(),
-                // ImageColumn::make('cover'),
+                TextColumn::make('slug')->sortable()->searchable(),
+                ImageColumn::make('cover'),
+                TextColumn::make('content')->sortable()->searchable(),
                 ToggleColumn::make('status')->sortable()->searchable(),
                 ])
             ->filters([
@@ -104,6 +100,7 @@ class PostResource extends Resource
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
+                Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([
                 ExportBulkAction::make(),
