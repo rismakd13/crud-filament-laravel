@@ -14,6 +14,8 @@ use Filament\Resources\Pages\ListRecords;
 use App\Filament\Resources\StudentResource;
 use Illuminate\Contracts\View\View as IlluminateView;
 use App\Filament\Resources\StudentResource\Actions as StudentActions;
+use Filament\Pages\Actions\Action;
+
 
 class ListStudents extends ListRecords
 {
@@ -22,7 +24,14 @@ class ListStudents extends ListRecords
     protected function getActions(): array
     {
         return [
-            Actions\ButtonAction::make('Import'),
+            Action::make('import')->label('Import')
+            ->action(function($data){
+                // ganti class import di bawah dengan yang benar
+                // Excel::import(new StudentImport, $data['file']);
+            })
+            ->form([
+                FileUpload::make('file')->label('File'),
+            ]),
             Actions\CreateAction::make(),
         ];
     }
